@@ -106,7 +106,11 @@ class ModelConverter(object):
                         continue
             field = base_fields.get(prop.key) or self.property2field(prop)
             if field:
-                result[prop.key] = field
+                result[prop.key] = field                
+                print("DEBUG _______")                
+                print(field)
+                print("DEBUG _______")
+                
         return result
 
     def fields_for_table(self, table, include_fk=False, fields=None, exclude=None, base_fields=None,
