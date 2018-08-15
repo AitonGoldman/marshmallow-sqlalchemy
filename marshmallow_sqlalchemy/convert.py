@@ -106,11 +106,7 @@ class ModelConverter(object):
                         continue
             field = base_fields.get(prop.key) or self.property2field(prop)
             if field:
-                result[prop.key] = field                
-                print("DEBUG start_______")                
-                print("%s contents are %s" % (prop,field))
-                print("DEBUG end_______")
-                
+                result[prop.key] = field                                
         return result
 
     def fields_for_table(self, table, include_fk=False, fields=None, exclude=None, base_fields=None,
@@ -134,6 +130,7 @@ class ModelConverter(object):
         field_kwargs = self._get_field_kwargs_for_property(prop)
         field_kwargs.update(kwargs)
         ret = field_class(**field_kwargs)
+        print("DEBUG_____%s"%ret)
         if (
             hasattr(prop, 'direction') and
             self.DIRECTION_MAPPING[prop.direction.name] and
