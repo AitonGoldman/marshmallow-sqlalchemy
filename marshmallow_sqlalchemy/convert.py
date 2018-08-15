@@ -129,14 +129,12 @@ class ModelConverter(object):
             return field_class
         field_kwargs = self._get_field_kwargs_for_property(prop)
         field_kwargs.update(kwargs)
-        ret = field_class(**field_kwargs)
-        print("DEBUG_____%s"%ret)
+        ret = field_class(**field_kwargs)        
         if (
             hasattr(prop, 'direction') and
             self.DIRECTION_MAPPING[prop.direction.name] and
             prop.uselist is True
         ):
-            print ("%s %s" % (ret, ret))
             ret = fields.List(ret, **kwargs)
         return ret
 
