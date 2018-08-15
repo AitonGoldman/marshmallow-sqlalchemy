@@ -106,7 +106,8 @@ class ModelConverter(object):
                         continue
             field = base_fields.get(prop.key) or self.property2field(prop)
             if field:
-                print ("%s %s" % (prop.key,field.related_model()))
+                if hasattr(prop, 'direction'):
+                    print ("%s %s" % (prop.key,field.related_model()))
                 result[prop.key] = field                                
         return result
 
