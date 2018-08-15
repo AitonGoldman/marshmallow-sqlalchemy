@@ -107,9 +107,9 @@ class ModelConverter(object):
             field = base_fields.get(prop.key) or self.property2field(prop)
             if field:
                 result[prop.key] = field                
-                print("DEBUG _______")                
-                print(field)
-                print("DEBUG _______")
+                print("DEBUG start_______")                
+                print("%s contents are %s" % (prop,field))
+                print("DEBUG end_______")
                 
         return result
 
