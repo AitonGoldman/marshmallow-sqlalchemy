@@ -105,9 +105,7 @@ class ModelConverter(object):
                     else:
                         continue
             field = base_fields.get(prop.key) or self.property2field(prop)
-            if field:
-                if hasattr(prop, 'direction'):
-                    print ("%s %s" % (prop.key,field.related_model()))
+            if field:                
                 result[prop.key] = field                                
         return result
 
@@ -138,6 +136,7 @@ class ModelConverter(object):
             self.DIRECTION_MAPPING[prop.direction.name] and
             prop.uselist is True
         ):
+            print ("%s %s" % (ret.related_model()))
             ret = fields.List(ret, **kwargs)
         return ret
 
