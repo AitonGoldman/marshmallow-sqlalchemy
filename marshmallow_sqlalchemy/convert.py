@@ -136,6 +136,9 @@ class ModelConverter(object):
             prop.uselist is True
         ):
             ret = fields.List(ret, **kwargs)
+            for i in ret:
+                print(i)
+
         return ret
 
     def column2field(self, column, instance=True, **kwargs):
