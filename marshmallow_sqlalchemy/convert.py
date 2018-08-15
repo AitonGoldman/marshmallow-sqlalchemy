@@ -136,8 +136,8 @@ class ModelConverter(object):
             prop.uselist is True
         ):
             ret = fields.List(ret, **kwargs)
-            for i in ret:
-                print(i)
+            
+            print(ret.container)
 
         return ret
 
