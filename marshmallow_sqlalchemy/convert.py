@@ -128,6 +128,7 @@ class ModelConverter(object):
         if not instance:
             return field_class
         field_kwargs = self._get_field_kwargs_for_property(prop)
+        print(field_kwargs)
         field_kwargs.update(kwargs)
         ret = field_class(**field_kwargs)        
         if (
@@ -135,9 +136,7 @@ class ModelConverter(object):
             self.DIRECTION_MAPPING[prop.direction.name] and
             prop.uselist is True
         ):
-            ret = fields.List(ret, **kwargs)
-            
-            print(ret.container)
+            ret = fields.List(ret, **kwargs)                        
 
         return ret
 
