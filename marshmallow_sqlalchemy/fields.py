@@ -49,19 +49,16 @@ class Related(fields.Field):
         return schema.opts.model
 
     @property
-    def related_model(self):
-        print('in related model...getting %s for %s' % (self.name,self.model))
+    def related_model(self):        
         return getattr(self.model, self.attribute or self.name).property.mapper.class_
 
     @property
-    def related_keys(self):
-        print('in related keys')        
+    def related_keys(self):        
         if self.columns:
             return [
                 self.related_model.__mapper__.columns[column]
                 for column in self.columns
-            ]
-        print('out of related keys')
+            ]        
         return get_primary_keys(self.related_model)
 
     @property
@@ -76,44 +73,30 @@ class Related(fields.Field):
         }
         return ret if len(ret) > 1 else list(ret.values())[0]
 
-    def _deserialize(self, value, *args, **kwargs):
-        #print("in deserialize - value is ... %s"  % value)
-        if not isinstance(value, dict):
-            #print("not isinstance")            
-            if len(self.related_keys) != 1:
-                #print("not isinstance failing...")
+    def _deserialize(self, value, *args, **kwargs):        
+        if not isinstance(value, dict):            
+            if len(self.related_keys) != 1:                
                 self.fail('invalid', value=value, keys=[prop.key for prop in self.related_keys])
-            value = {self.related_keys[0].key: value}
-        #print('about to query')        
-        query = self.session.query(self.related_model)
-        #print('query done')        
+            value = {self.related_keys[0].key: value}        
+        query = self.session.query(self.related_model)        
         try:
-            if self.columns:
-                #print("in self columns...")
+            if self.columns:                
                 result = query.filter_by(**{
                     prop.key: value.get(prop.key)
                     for prop in self.related_keys
-                }).one()
-                #print("out of self columns...")
+                }).one()                
             else:
-                # Use a faster path if the related key is the primary key.
-                #print('fast path start')                
-                # for prop in self.related_model.__mapper__.iterate_properties:
-                #     if hasattr(prop, 'direction') :                        
-                #         print("prop is %s"% prop)
-                #     #print("in columns - %s" % self.related_keys)
-                #print('fast path stop')
-                #print('result start')                
                 result = query.get([
                     value.get(prop.key) for prop in self.related_keys
                 ])
-                print("result is %s " % result)
-                #print('result end')                
+                print("result is %s " % result)                
                 if result is None:                    
                     raise NoResultFound
         except NoResultFound:
             # The related-object DNE in the DB, but we still want to deserialize it
             # ...perhaps we want to add it to the DB later
             print("not found ... %s %s " % (self.related_model,value))
-            return self.related_model(**value)
+            thing = self.related_model(**value)
+            print("thing is %s" % thing)
+            return thing
         return result
