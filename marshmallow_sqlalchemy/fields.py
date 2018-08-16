@@ -55,11 +55,13 @@ class Related(fields.Field):
 
     @property
     def related_keys(self):
+        print('in related keys')        
         if self.columns:
             return [
                 self.related_model.__mapper__.columns[column]
                 for column in self.columns
             ]
+        print('out of related keys')
         return get_primary_keys(self.related_model)
 
     @property
