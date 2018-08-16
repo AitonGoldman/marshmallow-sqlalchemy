@@ -94,6 +94,6 @@ class Related(fields.Field):
             # The related-object DNE in the DB, but we still want to deserialize it
             # ...perhaps we want to add it to the DB later            
             #thing = self.related_model(**value)            
-            ret = fields.List(self.related_model(**value))
+            ret = fields.List(Related())
             return thing
         return result
