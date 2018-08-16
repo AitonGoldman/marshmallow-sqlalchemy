@@ -42,7 +42,7 @@ class Related(fields.Field):
     def __init__(self, column=None, **kwargs):
         super(Related, self).__init__(**kwargs)
         self.columns = ensure_list(column or [])
-
+        print('init for Related - %s %s' % (column,kwargs))
     @property
     def model(self):
         schema = get_schema_for_field(self)
