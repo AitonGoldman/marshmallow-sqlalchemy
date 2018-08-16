@@ -50,6 +50,7 @@ class Related(fields.Field):
 
     @property
     def related_model(self):
+        print('in related model...getting %s' % self.attribute)
         return getattr(self.model, self.attribute or self.name).property.mapper.class_
 
     @property
