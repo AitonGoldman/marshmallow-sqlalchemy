@@ -45,6 +45,7 @@ class Related(fields.Field):
         print('init for Related - %s %s' % (column,kwargs))
     @property
     def model(self):
+        print('model is %s' % get_schema_for_field(self))
         schema = get_schema_for_field(self)
         return schema.opts.model
 
@@ -94,9 +95,7 @@ class Related(fields.Field):
                     raise NoResultFound
         except NoResultFound:
             # The related-object DNE in the DB, but we still want to deserialize it
-            # ...perhaps we want to add it to the DB later
-            print("not found ... %s %s " % (self.related_model,value))
-            thing = self.related_model(**value)
-            print("thing is %s" % thing)
+            # ...perhaps we want to add it to the DB later            
+            thing = self.related_model(**value)            
             return thing
         return result
