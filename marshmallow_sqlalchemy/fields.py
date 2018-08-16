@@ -16,6 +16,7 @@ def get_primary_keys(model):
         for column in mapper.primary_key
     ]
 
+
 def get_schema_for_field(field):
     if hasattr(field, 'root'):  # marshmallow>=2.1
         return field.root
@@ -57,7 +58,12 @@ class Related(fields.Field):
             return [
                 self.related_model.__mapper__.columns[column]
                 for column in self.columns
-            ]        
+            ]
+        print("here comes the debug")
+        for relationship in self.related_model.relationships:
+            print(relationship)
+        print("all done the debug")
+            
         return get_primary_keys(self.related_model)
 
     @property
@@ -93,6 +99,6 @@ class Related(fields.Field):
         except NoResultFound:
             # The related-object DNE in the DB, but we still want to deserialize it
             # ...perhaps we want to add it to the DB later            
-            #thing = self.related_model(**value)            
-            return fields.List(Related())            
+            return self.related_model(**value)            
+            
         return result
