@@ -60,7 +60,7 @@ class Related(fields.Field):
                 for column in self.columns
             ]
         print("here comes the debug")
-        for relationship in self.related_model.relationships:
+        for relationship in self.related_model.mapper.relationships:
             print(relationship)
         print("all done the debug")
             
