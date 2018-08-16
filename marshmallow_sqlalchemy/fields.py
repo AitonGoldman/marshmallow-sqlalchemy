@@ -83,7 +83,9 @@ class Related(fields.Field):
                 print("not isinstance failing...")
                 self.fail('invalid', value=value, keys=[prop.key for prop in self.related_keys])
             value = {self.related_keys[0].key: value}
+        print('about to query')        
         query = self.session.query(self.related_model)
+        print('query done')        
         try:
             if self.columns:
                 print("in self columns...")
