@@ -90,7 +90,7 @@ class Related(fields.Field):
                 }).one()
             else:
                 # Use a faster path if the related key is the primary key.
-                print("print no columns")
+                print("in columns - %s" % value)
                 result = query.get([
                     value.get(prop.key) for prop in self.related_keys
                 ])
