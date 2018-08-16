@@ -60,11 +60,9 @@ class Related(fields.Field):
                 for column in self.columns
             ]
         print("here comes the debug")
-        for relationship in self.related_model.__mapper__.relationships:
-            print(relationship)
-        print("all done the debug")
+        return get_primary_keys(self.related_model)                            
             
-        return get_primary_keys(self.related_model)
+        
 
     @property
     def session(self):
@@ -99,6 +97,10 @@ class Related(fields.Field):
         except NoResultFound:
             # The related-object DNE in the DB, but we still want to deserialize it
             # ...perhaps we want to add it to the DB later            
-            return self.related_model(**value)            
-            
+            thing = self.related_model(**value)
+            for relationship in thing.__mapper__.relationships:
+                print('more debug')                
+                print(relationship)
+                print('end debug')
+            return thing
         return result
