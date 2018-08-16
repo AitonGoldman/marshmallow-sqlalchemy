@@ -57,8 +57,7 @@ class Related(fields.Field):
             return [
                 self.related_model.__mapper__.columns[column]
                 for column in self.columns
-            ]
-        print('related model is %s' % self.related_model)
+            ]        
         return get_primary_keys(self.related_model)
 
     @property
@@ -88,8 +87,7 @@ class Related(fields.Field):
             else:
                 result = query.get([
                     value.get(prop.key) for prop in self.related_keys
-                ])
-                print("result is %s " % result)                
+                ])                
                 if result is None:                    
                     raise NoResultFound
         except NoResultFound:

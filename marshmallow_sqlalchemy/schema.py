@@ -58,6 +58,7 @@ class SchemaMeta(ma.schema.SchemaMeta):
             klass, cls_fields, inherited_fields, dict_cls
         )
         declared_fields = mcs.get_fields(converter, opts, base_fields, dict_cls)
+        print(declared_fields)
         declared_fields.update(base_fields)
         return declared_fields
 
