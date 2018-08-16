@@ -108,6 +108,7 @@ class Related(fields.Field):
                 ])
                 print('result end')                
                 if result is None:
+                    print('fuuuuccckkkk')
                     raise NoResultFound
         except NoResultFound:
             # The related-object DNE in the DB, but we still want to deserialize it
