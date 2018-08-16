@@ -77,6 +77,7 @@ class Related(fields.Field):
         return ret if len(ret) > 1 else list(ret.values())[0]
 
     def _deserialize(self, value, *args, **kwargs):
+        print("in deserialize - value is ... %s"  % value)
         if not isinstance(value, dict):
             print("not isinstance")            
             if len(self.related_keys) != 1:
@@ -97,10 +98,10 @@ class Related(fields.Field):
             else:
                 # Use a faster path if the related key is the primary key.
                 print('fast path start')                
-                for prop in self.related_model.__mapper__.iterate_properties:
-                    if hasattr(prop, 'direction') :                        
-                        print("prop is %s"% prop)
-                    #print("in columns - %s" % self.related_keys)
+                # for prop in self.related_model.__mapper__.iterate_properties:
+                #     if hasattr(prop, 'direction') :                        
+                #         print("prop is %s"% prop)
+                #     #print("in columns - %s" % self.related_keys)
                 print('fast path stop')
                 print('result start')                
                 result = query.get([
