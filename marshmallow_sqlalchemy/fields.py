@@ -107,11 +107,11 @@ class Related(fields.Field):
                     value.get(prop.key) for prop in self.related_keys
                 ])
                 print('result end')                
-                if result is None:
-                    print('fuuuuccckkkk')
+                if result is None:                    
                     raise NoResultFound
         except NoResultFound:
             # The related-object DNE in the DB, but we still want to deserialize it
             # ...perhaps we want to add it to the DB later
+            print("not found ... %s %s " % (self.related_mode,value))
             return self.related_model(**value)
         return result
