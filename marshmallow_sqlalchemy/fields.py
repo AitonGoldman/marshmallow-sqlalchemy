@@ -100,7 +100,8 @@ class Related(fields.Field):
             thing = self.related_model(**value)
             for relationship in thing.__mapper__.relationships:
                 print('more debug')                
-                print(relationship.mapper.attrs)
+                for attr in relationship.mapper.attrs:
+                    print(attr)
                 print('end debug')
             return thing
         return result
