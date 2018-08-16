@@ -135,8 +135,7 @@ class ModelConverter(object):
             self.DIRECTION_MAPPING[prop.direction.name] and
             prop.uselist is True
         ):
-            pass
-            #ret = fields.List(ret, **kwargs)
+            ret = fields.List(ret, **kwargs)
 
         return ret
 

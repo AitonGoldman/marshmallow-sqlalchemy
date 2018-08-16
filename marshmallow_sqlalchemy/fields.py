@@ -97,6 +97,7 @@ class Related(fields.Field):
         except NoResultFound:
             # The related-object DNE in the DB, but we still want to deserialize it
             # ...perhaps we want to add it to the DB later            
+            print("value is .... %s" % value)
             thing = self.related_model(**value)
             return thing
         return result
