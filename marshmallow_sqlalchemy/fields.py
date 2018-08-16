@@ -77,37 +77,38 @@ class Related(fields.Field):
         return ret if len(ret) > 1 else list(ret.values())[0]
 
     def _deserialize(self, value, *args, **kwargs):
-        print("in deserialize - value is ... %s"  % value)
+        #print("in deserialize - value is ... %s"  % value)
         if not isinstance(value, dict):
-            print("not isinstance")            
+            #print("not isinstance")            
             if len(self.related_keys) != 1:
-                print("not isinstance failing...")
+                #print("not isinstance failing...")
                 self.fail('invalid', value=value, keys=[prop.key for prop in self.related_keys])
             value = {self.related_keys[0].key: value}
-        print('about to query')        
+        #print('about to query')        
         query = self.session.query(self.related_model)
-        print('query done')        
+        #print('query done')        
         try:
             if self.columns:
-                print("in self columns...")
+                #print("in self columns...")
                 result = query.filter_by(**{
                     prop.key: value.get(prop.key)
                     for prop in self.related_keys
                 }).one()
-                print("out of self columns...")
+                #print("out of self columns...")
             else:
                 # Use a faster path if the related key is the primary key.
-                print('fast path start')                
+                #print('fast path start')                
                 # for prop in self.related_model.__mapper__.iterate_properties:
                 #     if hasattr(prop, 'direction') :                        
                 #         print("prop is %s"% prop)
                 #     #print("in columns - %s" % self.related_keys)
-                print('fast path stop')
-                print('result start')                
+                #print('fast path stop')
+                #print('result start')                
                 result = query.get([
                     value.get(prop.key) for prop in self.related_keys
                 ])
-                print('result end')                
+                print("result is %s " % result)
+                #print('result end')                
                 if result is None:                    
                     raise NoResultFound
         except NoResultFound:
