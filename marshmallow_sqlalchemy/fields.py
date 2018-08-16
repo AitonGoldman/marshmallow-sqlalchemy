@@ -41,11 +41,9 @@ class Related(fields.Field):
 
     def __init__(self, column=None, **kwargs):
         super(Related, self).__init__(**kwargs)
-        self.columns = ensure_list(column or [])
-        print('init for Related - %s %s' % (column,kwargs))
+        self.columns = ensure_list(column or [])        
     @property
-    def model(self):
-        print('model is %s' % get_schema_for_field(self))
+    def model(self):        
         schema = get_schema_for_field(self)
         return schema.opts.model
 
@@ -59,7 +57,8 @@ class Related(fields.Field):
             return [
                 self.related_model.__mapper__.columns[column]
                 for column in self.columns
-            ]        
+            ]
+        print('related model is %s' % self.related_model)
         return get_primary_keys(self.related_model)
 
     @property
