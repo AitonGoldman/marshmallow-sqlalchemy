@@ -93,15 +93,20 @@ class Related(fields.Field):
                     prop.key: value.get(prop.key)
                     for prop in self.related_keys
                 }).one()
+                print("out of self columns...")
             else:
                 # Use a faster path if the related key is the primary key.
+                print('fast path start')                
                 for prop in self.related_model.__mapper__.iterate_properties:
                     if hasattr(prop, 'direction') :                        
                         print("prop is %s"% prop)
                     #print("in columns - %s" % self.related_keys)
+                print('fast path stop')
+                print('result start')                
                 result = query.get([
                     value.get(prop.key) for prop in self.related_keys
                 ])
+                print('result end')                
                 if result is None:
                     raise NoResultFound
         except NoResultFound:
