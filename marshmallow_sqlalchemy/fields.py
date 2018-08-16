@@ -58,8 +58,7 @@ class Related(fields.Field):
             return [
                 self.related_model.__mapper__.columns[column]
                 for column in self.columns
-            ]
-        print("here comes the debug")
+            ]        
         return get_primary_keys(self.related_model)                            
             
         
@@ -96,8 +95,7 @@ class Related(fields.Field):
                     raise NoResultFound
         except NoResultFound:
             # The related-object DNE in the DB, but we still want to deserialize it
-            # ...perhaps we want to add it to the DB later            
-            print("value is .... %s" % value)
+            # ...perhaps we want to add it to the DB later                        
             thing = self.related_model(**value)
             return thing
         return result

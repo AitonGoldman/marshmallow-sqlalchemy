@@ -94,6 +94,7 @@ class ModelSchemaMeta(SchemaMeta):
                 base_fields=base_fields,
                 dict_cls=dict_cls,
             )
+            print(thing)
             return thing
         return dict_cls()
 
