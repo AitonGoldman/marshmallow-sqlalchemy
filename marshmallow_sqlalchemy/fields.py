@@ -99,10 +99,11 @@ class Related(fields.Field):
             # ...perhaps we want to add it to the DB later            
             thing = self.related_model(**value)
             for relationship in thing.__mapper__.relationships:
-                print('more debug')                
-                print(relationship)
-                for attr in relationship.mapper.attrs:
-                    print(attr)
+                relationship=Related()
+                # print('more debug')                
+                # print(relationship)
+                # for attr in relationship.mapper.attrs:
+                #     print(attr)
                 print('end debug')
             return thing
         return result
