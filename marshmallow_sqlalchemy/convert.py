@@ -127,8 +127,7 @@ class ModelConverter(object):
         field_class = field_class or self._get_field_class_for_property(prop)
         if not instance:
             return field_class
-        field_kwargs = self._get_field_kwargs_for_property(prop)
-        print(field_kwargs)
+        field_kwargs = self._get_field_kwargs_for_property(prop)        
         field_kwargs.update(kwargs)
         ret = field_class(**field_kwargs)        
         if (
